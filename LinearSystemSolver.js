@@ -9,4 +9,14 @@ class LinearSystemSolver
   {
 
   }
+
+  transformTriangular()
+  {
+
+  }
+
+  substitute()
+  {
+    
+  }
 }
