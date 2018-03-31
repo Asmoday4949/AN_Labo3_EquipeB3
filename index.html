@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Résolution de système linéaire</title>
+  </head>
+  <body>
+    <h1>Résolution de système linéaire</h1>
+    <label for="matrix">
+      Matrix :
+      <select name="matrix" id="matrix">
+        <option value="matrice_0x0">Matrice 0x0</option>
+        <option value="matrice_3x3">Matrice 3x3</option>
+        <option value="matrice_50x50">Matrice 50x50</option>
+        <option value="matrice_250x250">Matrice 250x250</option>
+        <option value="matrice_300x300">Matrice 300x300</option>
+        <option value="matrice_avecPB_0x0">Matrice avec PB 0x0</option>
+        <option value="matrice_avecPB_3x3_avec_A_a_0">Matrice avec PB  avec A a 0 3x3</option>
+        <option value="matrice_avecPB_3x3_avec_SwapObligatoire">Matrice avec PB avec Swap 3x3</option>
+      </select>
+    </label>
+
+    <button onclick="solveMatrix()">Résoudre</button>
+
+    <script src="LinearSystemSolver.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
