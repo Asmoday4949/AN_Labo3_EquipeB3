@@ -5,6 +5,7 @@ class LinearSystemSolver
    this.size = data['n'][0];
    this.matrix = data['A'];
    this.vector = data['B'];
+   console.log("ok");
   }
   
   solve()
@@ -33,12 +34,30 @@ class LinearSystemSolver
     let y = 0;
     do {
        text += "<tr>";
+
       for (let x = 0; x < this.size - 1; x+=1) {
-        text += "<td>" + this.matrix[(y*this.size)+x] + "</td>";
+        if(x == y && idDivContainer == "divTransformMatrix") {
+          text += '<td style="background-color: coral;">';
+        }
+        else {
+          text +="<td>"
+        }
+
+        text +=  + this.matrix[(y*this.size)+x] + "</td>";
       }
+
       y++;
-      text += "<td>" + this.matrix[(y*this.size) - 1] + "</td></tr>";
+      if(y == this.size && idDivContainer == "divTransformMatrix") {
+        text += '<td style="background-color: coral;">';
+      }
+      else {
+        text += '<td>';
+      }
+
+      text += this.matrix[(y*this.size) - 1] + "</td></tr>";
+
     } while(y < this.size);
+
     text += "</table>"
     document.getElementById(idDivContainer).innerHTML = text;
   }
@@ -157,7 +176,7 @@ class LinearSystemSolver
   }
 }
 
-data = {'n':[3],
+/*data = {'n':[3],
         'A':[2,-1,0,-1,2,-1,0,-1,2],
         'B':[1,2,3]};
         
@@ -173,5 +192,5 @@ sysLin.transformTriangular();
 console.log("---------------------");
 console.log("Results ...");
 sysLin.printMatrix();
-sysLin.showHTML("divTransformMatrix");
+sysLin.showHTML("divTransformMatrix");*/
 
