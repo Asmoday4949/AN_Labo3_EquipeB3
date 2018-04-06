@@ -11,6 +11,37 @@ class LinearSystemSolver
   {
   
   }
+
+  showHTML(idDivContainer)
+  {
+    // V1 dans p
+    /*let text = "";
+    let y = 0;
+    do {
+       text += "[";
+      for (let x = 0; x < this.size - 1; x+=1) {
+        text += this.matrix[(y*this.size)+x] + ", ";
+      }
+      y++;
+      text += this.matrix[(y*this.size) - 1] + "]<br />";
+    } while(y < this.size);
+    document.getElementById(idDivContainer).innerHTML = "<p>" + text + "</p>";*/
+
+    // V2 dans table
+    
+    let text = '<table>';
+    let y = 0;
+    do {
+       text += "<tr>";
+      for (let x = 0; x < this.size - 1; x+=1) {
+        text += "<td>" + this.matrix[(y*this.size)+x] + "</td>";
+      }
+      y++;
+      text += "<td>" + this.matrix[(y*this.size) - 1] + "</td></tr>";
+    } while(y < this.size);
+    text += "</table>"
+    document.getElementById(idDivContainer).innerHTML = text;
+  }
   
   // Permet de convertir les index 2D en index 1D
   convertIndex(row, column)
@@ -135,10 +166,12 @@ sysLin = new LinearSystemSolver(data);
 console.log(sysLin.size);
 console.log(sysLin.matrix);
 console.log(sysLin.vector);
+sysLin.showHTML("divOriginalMatrix");
 console.log("---------------------");
 console.log("Operations ...");
 sysLin.transformTriangular();
 console.log("---------------------");
 console.log("Results ...");
 sysLin.printMatrix();
+sysLin.showHTML("divTransformMatrix");
 

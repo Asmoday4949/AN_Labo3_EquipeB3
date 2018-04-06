@@ -3,6 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>Résolution de système linéaire</title>
+    <style>
+      table, td, th {    
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 10%;
+      }
+
+      th, td {
+        padding: 15px;
+      }
+    </style>
   </head>
   <body>
     <h1>Résolution de système linéaire</h1>
@@ -21,6 +36,16 @@
     </label>
 
     <button onclick="solveMatrix()">Résoudre</button>
+    
+    <hr />
+
+    <div id="divOriginalMatrix">
+    </div>
+    
+    <hr />
+    
+    <div id="divTransformMatrix">
+    </div>
 
     <script src="LinearSystemSolver.js"></script>
     <script src="script.js"></script>
