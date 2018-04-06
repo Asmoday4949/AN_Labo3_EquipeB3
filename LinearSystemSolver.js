@@ -183,26 +183,31 @@ class LinearSystemSolver
   //   }
   // }
 
+
+  //transform a matrix in a triangular matrix as seen in the course
+  //elimination de Gauss
   transformTriangular()
   {
     let matrix = this.matrix;
     let vector = this.vector
 
     this.displayMatrix(matrix, "divOriginalMatrix");
-    let i = 0;
 
-    for(let j = 1; j < matrix.length; j++)
+    for(let i = 0; i < matrix.length; i++)
     {
-      for(let k = 1; k < matrix.length; k++)
+      for(let j = i+1; j < matrix.length; j++)
       {
-        matrix[j][k] = matrix[j][k] - (matrix[j][0]/matrix[0][0])*matrix[0][k];
+        for(let k = i+1; k < matrix.length; k++)
+        {
+          matrix[j][k] = matrix[j][k] - (matrix[j][i]/matrix[i][i])*matrix[i][k];
+        }
+
+        vector[j] = vector[j] - (matrix[j][i]/matrix[i][i]*vector[i]);
+
+        matrix[j][i] = 0;
       }
-
-      vector[j] = vector[j] - (matrix[j][0]/matrix[0][0]*vector[0]);
-
-      matrix[j][0] = 0;
+      this.displayMatrix(matrix, "divTransformMatrix");
     }
-    this.displayMatrix(matrix, "divTransformMatrix");
   }
 
   substitute()
