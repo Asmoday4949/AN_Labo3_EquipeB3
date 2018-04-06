@@ -14,51 +14,45 @@ class LinearSystemSolver
   }
 
   showHTML(idDivContainer)
-  {
-    // V1 dans p
-    /*let text = "";
-    let y = 0;
-    do {
-       text += "[";
-      for (let x = 0; x < this.size - 1; x+=1) {
-        text += this.matrix[(y*this.size)+x] + ", ";
-      }
-      y++;
-      text += this.matrix[(y*this.size) - 1] + "]<br />";
-    } while(y < this.size);
-    document.getElementById(idDivContainer).innerHTML = "<p>" + text + "</p>";*/
-
-    // V2 dans table
+  {    
+    let text;
     
-    let text = '<table>';
-    let y = 0;
-    do {
-       text += "<tr>";
+    if(this.size > 50)
+    {
+      text = "<p>La matrice est trop grande pour &ecirc;tre affich&eacute;e</p>"
+    }
+    else
+    {
+      text = '<table>';
+      let y = 0;
+      do {
+        text += "<tr>";
 
-      for (let x = 0; x < this.size - 1; x+=1) {
-        if(x == y && idDivContainer == "divTransformMatrix") {
+        for (let x = 0; x < this.size - 1; x+=1) {
+          if(x == y && idDivContainer == "divTransformMatrix") {
+            text += '<td style="background-color: coral;">';
+          }
+          else {
+            text +="<td>"
+          }
+
+          text +=  + this.matrix[(y*this.size)+x] + "</td>";
+        }
+
+        y++;
+        if(y == this.size && idDivContainer == "divTransformMatrix") {
           text += '<td style="background-color: coral;">';
         }
         else {
-          text +="<td>"
+          text += '<td>';
         }
 
-        text +=  + this.matrix[(y*this.size)+x] + "</td>";
-      }
+        text += this.matrix[(y*this.size) - 1] + "</td></tr>";
 
-      y++;
-      if(y == this.size && idDivContainer == "divTransformMatrix") {
-        text += '<td style="background-color: coral;">';
-      }
-      else {
-        text += '<td>';
-      }
+      } while(y < this.size);
 
-      text += this.matrix[(y*this.size) - 1] + "</td></tr>";
-
-    } while(y < this.size);
-
-    text += "</table>"
+      text += "</table>"
+    }
     document.getElementById(idDivContainer).innerHTML = text;
   }
   
