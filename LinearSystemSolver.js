@@ -10,6 +10,7 @@ class LinearSystemSolver
   solve()
   {
     this.transformTriangular();
+	this.substitute();
   }
 
   transform2D(arr, size)
@@ -74,6 +75,24 @@ class LinearSystemSolver
     }
     document.getElementById(idDivContainer).innerHTML = text;
   }
+  
+  // Permet d'afficher les résultats
+  displayResults(resultsVect, idDivContainer)
+  {
+	  let text;
+	  
+	  text = "<table>";
+	  for(let i = 0;i < resultsVect.length; i++)
+	  {
+		  text += "<tr>";
+		  text += "<td>X<sub>" + (i+1) + "</sub></td>";
+		  text += "<td>" + resultsVect[i] + "</td>"
+		  text += "</tr>";
+	  }
+	  text += "</table>";
+	  
+	  document.getElementById(idDivContainer).innerHTML = text;
+  }
 
   //transform a matrix in a triangular matrix as seen in the course
   //elimination de Gauss
@@ -101,6 +120,8 @@ class LinearSystemSolver
     }
   }
 
+  // Permet d'effectuer la substitution
+  // Calcule vérifier avec cet outil : http://www.bluebit.gr/matrix-calculator/linear_equations.aspx
   substitute()
   {
 	let xResults = [];	// Tous les résultats de X
@@ -125,6 +146,6 @@ class LinearSystemSolver
 		xResults.unshift(x);
 	}
 	
-	return xResults.reverse();
+	this.displayResults(xResults, "divResultsLinSys");
   }
 }
