@@ -31,5 +31,9 @@ function solveMatrix()
       solver.display("divTransformMatrix", "divTransformVector");
       solver.displayVector(results, "divResultsLinSys")
     }
+    else
+    {
+        alert('La matrice ne peut pas être résolu');
+    }
   });
 }

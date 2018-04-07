@@ -121,10 +121,14 @@ class LinearSystemSolver
         for(let k = i+1; k < matrix.length; k++)
         {
           matrix[j][k] = matrix[j][k] - (matrix[j][i]/matrix[i][i])*matrix[i][k];
+
+          if(j === k && matrix[j][k] === 0 || matrix[i][i] === 0)
+          {
+            return false;
+          }
         }
 
         vector[j] = vector[j] - (matrix[j][i]/matrix[i][i]*vector[i]);
-
         matrix[j][i] = 0;
       }
     }
