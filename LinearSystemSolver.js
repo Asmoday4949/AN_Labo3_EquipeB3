@@ -9,8 +9,15 @@ class LinearSystemSolver
 
   solve()
   {
-    this.transformTriangular();
-	this.substitute();
+    let hasSucceed = this.transformTriangular();
+    if(hasSucceed)
+    {
+      return this.substitute();
+    }
+    else
+    {
+      return undefined;
+    }
   }
 
   transform2D(arr, size)
@@ -75,23 +82,29 @@ class LinearSystemSolver
     }
     document.getElementById(idDivContainer).innerHTML = text;
   }
-  
+
   // Permet d'afficher les résultats
-  displayResults(resultsVect, idDivContainer)
+  displayVector(vect, idDivContainer)
   {
 	  let text;
-	  
+
 	  text = "<table>";
-	  for(let i = 0;i < resultsVect.length; i++)
+	  for(let i = 0;i < vect.length; i++)
 	  {
 		  text += "<tr>";
 		  text += "<td>X<sub>" + (i+1) + "</sub></td>";
-		  text += "<td>" + resultsVect[i] + "</td>"
+		  text += "<td>" + vect[i] + "</td>"
 		  text += "</tr>";
 	  }
 	  text += "</table>";
-	  
+
 	  document.getElementById(idDivContainer).innerHTML = text;
+  }
+
+  display(divMatrix, divVector)
+  {
+    this.displayMatrix(this.matrix, divMatrix);
+    this.displayVector(this.vector, divVector);
   }
 
   //transform a matrix in a triangular matrix as seen in the course
@@ -100,8 +113,6 @@ class LinearSystemSolver
   {
     let matrix = this.matrix;
     let vector = this.vector
-
-    this.displayMatrix(matrix, "divOriginalMatrix");
 
     for(let i = 0; i < matrix.length; i++)
     {
@@ -116,36 +127,37 @@ class LinearSystemSolver
 
         matrix[j][i] = 0;
       }
-      this.displayMatrix(matrix, "divTransformMatrix");
     }
+
+    return true;
   }
 
   // Permet d'effectuer la substitution
   // Calcule vérifier avec cet outil : http://www.bluebit.gr/matrix-calculator/linear_equations.aspx
   substitute()
   {
-	let xResults = [];	// Tous les résultats de X
-	
-	for(let row = this.size-1;row >= 0; row--)
-	{
-		let x = this.vector[row];
-		
-		let column = this.size-1;
-		let indexResult = xResults.length - 1;
-		
-		// Effectue la substitution si des résultats ont été trouvés auparavant
-		while(indexResult >= 0)
-		{
-			x -= xResults[indexResult] * this.matrix[row][column];
-			indexResult--;
-			column--;
-		}
+  	let xResults = [];	// Tous les résultats de X
 
-		// Trouve le résultat de X
-		x = x / this.matrix[row][column];
-		xResults.unshift(x);
-	}
-	
-	this.displayResults(xResults, "divResultsLinSys");
+  	for(let row = this.size-1;row >= 0; row--)
+  	{
+  		let x = this.vector[row];
+
+  		let column = this.size-1;
+  		let indexResult = xResults.length - 1;
+
+  		// Effectue la substitution si des résultats ont été trouvés auparavant
+  		while(indexResult >= 0)
+  		{
+  			x -= xResults[indexResult] * this.matrix[row][column];
+  			indexResult--;
+  			column--;
+  		}
+
+  		// Trouve le résultat de X
+  		x = x / this.matrix[row][column];
+  		xResults.unshift(x);
+  	}
+
+    return xResults;
   }
 }

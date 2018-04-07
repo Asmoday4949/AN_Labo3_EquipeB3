@@ -23,8 +23,13 @@ function solveMatrix()
   {
     let jsonMatrix = JSON.parse(response);
     let solver = new LinearSystemSolver(jsonMatrix);
-    //solver.showHTML("divOriginalMatrix");
-    solver.solve();
-    //solver.showHTML("divTransformMatrix");
+    solver.display("divOriginalMatrix", "divOriginalVector");
+    let results = solver.solve();
+
+    if(results !== undefined)
+    {
+      solver.display("divTransformMatrix", "divTransformVector");
+      solver.displayVector(results, "divResultsLinSys")
+    }
   });
 }

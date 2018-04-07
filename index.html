@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Résolution de système linéaire</title>
     <style>
-      table, td, th {    
+      table, td, th {
         border: 1px solid #ddd;
         text-align: center;
       }
@@ -15,6 +15,24 @@
 
       th, td {
         padding: 5px;
+        height: 20px;
+      }
+
+      .container{
+        display: flex;
+      }
+
+      .matrix {
+        flex: 1;
+        width: auto;
+        font-size: 14px;
+        margin-right: 20px;
+      }
+
+      .vector {
+        flex: 1;
+        width: auto;
+        font-size: 14px;
       }
     </style>
   </head>
@@ -35,21 +53,25 @@
     </label>
 
     <button onclick="solveMatrix()">Résoudre</button>
-    
-    <hr />
-    <h3>Matrice originale</h3>
-    <div id="divOriginalMatrix">
+
+    <hr>
+    <h3>Matrice originale et son vecteur</h3>
+    <div class="container">
+      <div id="divOriginalMatrix" class="matrix"></div>
+      <div id="divOriginalVector" class="vector"></div>
     </div>
-    
-    <hr />
-    <h3>Matrice transform&eacute;e</h3>
-    <div id="divTransformMatrix">
+
+    <hr>
+    <h3>Matrice transform&eacute;e et son vecteur transformé</h3>
+    <div class="container">
+      <div id="divTransformMatrix" class="matrix"></div>
+      <div id="divTransformVector" class="vector"></div>
     </div>
-	
-	<hr />
+
+    <hr>
     <h3>Résultats du système linéaire</h3>
-    <div id="divResultsLinSys">
-    </div>
+    <div id="divResultsLinSys"></div>
+
 
     <script src="LinearSystemSolver.js"></script>
     <script src="script.js"></script>
