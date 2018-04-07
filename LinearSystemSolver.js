@@ -5,6 +5,7 @@ class LinearSystemSolver
     this.size = data['n'][0];
     this.matrix = this.transform2D(data['A'], this.size);;
     this.vector = data['B'];
+    this.nDecimal = 2;
   }
 
   solve()
@@ -72,7 +73,7 @@ class LinearSystemSolver
             text +="<td>"
           }
 
-          text += matrix[i][j];
+          text += matrix[i][j].toFixed(this.nDecimal);
           text += "</td>";
         }
         text += "</tr>";
@@ -93,7 +94,7 @@ class LinearSystemSolver
 	  {
 		  text += "<tr>";
 		  text += "<td>X<sub>" + (i+1) + "</sub></td>";
-		  text += "<td>" + vect[i] + "</td>"
+		  text += "<td>" + vect[i].toFixed(this.nDecimal) + "</td>"
 		  text += "</tr>";
 	  }
 	  text += "</table>";
