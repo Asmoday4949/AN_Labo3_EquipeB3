@@ -37,6 +37,6 @@ function solveMatrix()
         alert('La matrice ne peut pas être résolu');
     }
 	
-	document.getElementById("divTime").innerHTML = "<p>Temps de résolution : " + solveTime + "ms</p>";
+	document.getElementById("divTime").innerHTML = "<p>Temps de résolution : " + solveTime + " ms</p>";
   });
 }
