@@ -15,21 +15,22 @@ class LinearSystemSolver
     let rotationRow = 0;
     let rotationColumn = 0;
     let attempt = 0;
+    let maxIndex = this.size - 1;
 
     //will rotate row and after column and try to triangularize the matrix until it works,
     //if it doesn't work, the matrix is unsolvable
-    while(rotationRow < this.size - 1 && rotationColumn < this.size - 1)
+    while(rotationRow < maxIndex && rotationColumn < maxIndex)
     {
-      if(attempt > 0 && rotationRow < this.size - 1)
+      if(attempt > 0 && rotationRow < maxIndex)
       {
         this.rotateRow();
-        rotationRow++;
+        rotationRow+=1;
       }
 
-      if(this.rotationRow >= this.size - 1)
+      if(this.rotationRow >= maxIndex)
       {
         this.rotateColumn();
-        rotationColumn++;
+        rotationColumn+=1;
       }
 
       hasSucceed = this.transformTriangular();
@@ -152,11 +153,11 @@ class LinearSystemSolver
     let matrix = this.copyMatrix(this.matrix);
     let vector = this.vector
 
-    for(let i = 0; i < matrix.length; i++)
+    for(let i = 0; i < matrix.length; i+=1)
     {
-      for(let j = i+1; j < matrix.length; j++)
+      for(let j = i+1; j < matrix.length; j+=1)
       {
-        for(let k = i+1; k < matrix.length; k++)
+        for(let k = i+1; k < matrix.length; k+=1)
         {
           matrix[j][k] = matrix[j][k] - (matrix[j][i]/matrix[i][i])*matrix[i][k];
 
@@ -181,19 +182,20 @@ class LinearSystemSolver
   {
   	let xResults = [];	// Tous les résultats de X
 
-  	for(let row = this.size-1;row >= 0; row--)
+    let maxIndex = this.size-1; 
+    for(let row = maxIndex;row >= 0; row-=1)
   	{
   		let x = this.vector[row];
 
-  		let column = this.size-1;
+  		let column = maxIndex;
   		let indexResult = xResults.length - 1;
 
   		// Effectue la substitution si des résultats ont été trouvés auparavant
   		while(indexResult >= 0)
   		{
   			x -= xResults[indexResult] * this.matrix[row][column];
-  			indexResult--;
-  			column--;
+  			indexResult-=1;
+  			column-=1;
   		}
 
   		// Trouve le résultat de X
@@ -216,7 +218,7 @@ class LinearSystemSolver
   rotateArray(array)
   {
     let lastRow = array[array.length-1];
-    for(let i = 1; i < array.length; i++)
+    for(let i = 1; i < array.length; i+=1)
     {
       array[this.size-i] = array[array.length-i-1];
     }
@@ -231,22 +233,22 @@ class LinearSystemSolver
     let lastIndex = this.size - 1;
 
     //save the last value of each row
-    for(let i = 0; i < this.size; i++)
+    for(let i = 0; i < this.size; i+=1)
     {
       savedData.push(this.matrix[i][lastIndex]);
     }
 
     //starting from the end, copy the data the value after
-    for(let i = lastIndex - 1; i >= 0; i--)
+    for(let i = lastIndex - 1; i >= 0; i-=1)
     {
-      for(let j = 0; j < this.size; j++)
+      for(let j = 0; j < this.size; j+=1)
       {
         this.matrix[j][i+1] = this.matrix[j][i];
       }
     }
 
     //paste the copied values
-    for(let i = 0; i < this.size; i++)
+    for(let i = 0; i < this.size; i+=1)
     {
       this.matrix[i][0] = savedData[i];
     }
@@ -257,10 +259,10 @@ class LinearSystemSolver
   {
     let newMatrix = [];
 
-    for(let i = 0; i < matrix.length; i++)
+    for(let i = 0; i < matrix.length; i+=1)
     {
       let newRow = [];
-      for(let j = 0; j < matrix.length; j++)
+      for(let j = 0; j < matrix.length; j+=1)
       {
         newRow.push(matrix[i][j]);
       }
