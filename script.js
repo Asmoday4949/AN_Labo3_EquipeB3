@@ -31,11 +31,12 @@ function solveMatrix()
     {
       solver.display("divTransformMatrix", "divTransformVector");
       solver.displayVector(results, "divResultsLinSys")
-      alert('Temps de résolution : ' + solveTime + ' ms');
     }
     else
     {
-        alert('La matrice ne peut pas être résolu' + "\n" + 'Temps de résolution : ' + solveTime + ' ms');
+        alert('La matrice ne peut pas être résolu');
     }
+	
+	document.getElementById("divTime").innerHTML = "<p>Temps de résolution : " + solveTime + "ms</p>";
   });
 }
