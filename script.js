@@ -24,16 +24,18 @@ function solveMatrix()
     let jsonMatrix = JSON.parse(response);
     let solver = new LinearSystemSolver(jsonMatrix);
     solver.display("divOriginalMatrix", "divOriginalVector");
+    let startTime = performance.now();
     let results = solver.solve();
-
+    let solveTime = performance.now() - startTime;
     if(results !== undefined)
     {
       solver.display("divTransformMatrix", "divTransformVector");
       solver.displayVector(results, "divResultsLinSys")
+      alert('Temps de résolution : ' + solveTime + ' ms');
     }
     else
     {
-        alert('La matrice ne peut pas être résolu');
+        alert('La matrice ne peut pas être résolu' + "\n" + 'Temps de résolution : ' + solveTime + ' ms');
     }
   });
 }
