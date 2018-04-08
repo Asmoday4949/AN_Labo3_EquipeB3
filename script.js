@@ -24,6 +24,7 @@ function solveMatrix()
     let jsonMatrix = JSON.parse(response);
     let solver = new LinearSystemSolver(jsonMatrix);
     solver.display("divOriginalMatrix", "divOriginalVector");
+    //solver.rotateRow();
     let results = solver.solve();
 
     if(results !== undefined)
