@@ -227,7 +227,29 @@ class LinearSystemSolver
   //rotate the column of a matrix
   rotateColumn()
   {
+    let savedData = [];
+    let lastIndex = this.size - 1;
 
+    //save the last value of each row
+    for(let i = 0; i < this.size; i++)
+    {
+      savedData.push(this.matrix[i][lastIndex]);
+    }
+
+    //starting from the end, copy the data the value after
+    for(let i = lastIndex - 1; i >= 0; i--)
+    {
+      for(let j = 0; j < this.size; j++)
+      {
+        this.matrix[j][i+1] = this.matrix[j][i];
+      }
+    }
+
+    //paste the copied values
+    for(let i = 0; i < this.size; i++)
+    {
+      this.matrix[i][0] = savedData[i];
+    }
   }
 
   //copy a matrix (only square matrix)
