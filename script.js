@@ -25,6 +25,7 @@ function solveMatrix()
     let solver = new LinearSystemSolver(jsonMatrix);
     solver.display("divOriginalMatrix", "divOriginalVector");
     let startTime = Date.now();
+    //solver.rotateRow();
     let results = solver.solve();
     let solveTime = Date.now() - startTime;
     if(results !== undefined)

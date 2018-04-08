@@ -8,9 +8,42 @@ class LinearSystemSolver
     this.nDecimal = 2;
   }
 
+  //start the solving process
   solve()
   {
-    let hasSucceed = this.transformTriangular();
+    let hasSucceed = false;
+    let rotationRow = 0;
+    let rotationColumn = 0;
+    let attempt = 0;
+
+    //will rotate row and after column and try to triangularize the matrix until it works,
+    //if it doesn't work, the matrix is unsolvable
+    while(rotationRow < this.size - 1 && rotationColumn < this.size - 1)
+    {
+      if(attempt > 0 && rotationRow < this.size - 1)
+      {
+        this.rotateRow();
+        rotationRow++;
+      }
+
+      if(this.rotationRow >= this.size - 1)
+      {
+        this.rotateColumn();
+        rotationColumn++;
+      }
+
+      hasSucceed = this.transformTriangular();
+
+      // if it worked exit the loop
+      if(hasSucceed)
+      {
+        break;
+      }
+
+      attempt++;
+    }
+
+
     if(hasSucceed)
     {
       return this.substitute();
@@ -21,6 +54,7 @@ class LinearSystemSolver
     }
   }
 
+  //transform an array 1D in 2D
   transform2D(arr, size)
   {
     //only square matrix
@@ -47,6 +81,8 @@ class LinearSystemSolver
     return matrix;
   }
 
+  //display a matrix in idDivContainer
+  //displayed with html table
   displayMatrix(matrix, idDivContainer)
   {
     let text;
@@ -102,6 +138,7 @@ class LinearSystemSolver
 	  document.getElementById(idDivContainer).innerHTML = text;
   }
 
+  // display a matrix and it's vector
   display(divMatrix, divVector)
   {
     this.displayMatrix(this.matrix, divMatrix);
@@ -112,7 +149,7 @@ class LinearSystemSolver
   //elimination de Gauss
   transformTriangular()
   {
-    let matrix = this.matrix;
+    let matrix = this.copyMatrix(this.matrix);
     let vector = this.vector
 
     for(let i = 0; i < matrix.length; i++)
@@ -134,6 +171,7 @@ class LinearSystemSolver
       }
     }
 
+    this.matrix = matrix;
     return true;
   }
 
@@ -164,5 +202,49 @@ class LinearSystemSolver
   	}
 
     return xResults;
+  }
+
+  //rotate this.matrix and this.vector
+  rotateRow()
+  {
+    this.rotateArray(this.matrix);
+    this.rotateArray(this.vector);
+  }
+
+  // rotate an array
+  // the last element will become the first
+  rotateArray(array)
+  {
+    let lastRow = array[array.length-1];
+    for(let i = 1; i < array.length; i++)
+    {
+      array[this.size-i] = array[array.length-i-1];
+    }
+
+    array[0] = lastRow;
+  }
+
+  //rotate the column of a matrix
+  rotateColumn()
+  {
+
+  }
+
+  //copy a matrix (only square matrix)
+  copyMatrix(matrix)
+  {
+    let newMatrix = [];
+
+    for(let i = 0; i < matrix.length; i++)
+    {
+      let newRow = [];
+      for(let j = 0; j < matrix.length; j++)
+      {
+        newRow.push(matrix[i][j]);
+      }
+      newMatrix.push(newRow);
+    }
+
+    return newMatrix;
   }
 }
