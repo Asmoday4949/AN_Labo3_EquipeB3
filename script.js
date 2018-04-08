@@ -24,10 +24,10 @@ function solveMatrix()
     let jsonMatrix = JSON.parse(response);
     let solver = new LinearSystemSolver(jsonMatrix);
     solver.display("divOriginalMatrix", "divOriginalVector");
-    let startTime = Date.now();
+    let startTime = performance.now();
     //solver.rotateRow();
     let results = solver.solve();
-    let solveTime = Date.now() - startTime;
+    let solveTime = performance.now() - startTime;
     if(results !== undefined)
     {
       solver.display("divTransformMatrix", "divTransformVector");
